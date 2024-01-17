@@ -1,0 +1,30 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Наше меню</title>
+    <link rel="stylesheet" href="{% static 'menu/style.css' %}">
+</head>
+<body>
+    <a href="{% url 'main:index' %}">
+        <img id="small_logo" src="{% static 'menu/images/small_logo.png' %}" alt="Логтип">
+    </a>
+    <div class="name"><h1>Меню</h1></div>
+    <div class="menu_list">
+        {% for pizza in Пицца %}
+            <div class="menu_list_item">
+                <a class="pizza_name" href="{% url 'menu:info' pizza.id %}" style="text-decoration:none; color: white"> <span class="menu_list_title" > {{pizza.name}}:</span></a>
+                <span class="menu_list_price">{{pizza.price | floatformat:2}} руб.</span>
+                <br>
+                <div>
+                {% if pizza.vegetarian %}
+                    <span class="menu_list_badge">Вегетарианская</span>
+                {% endif %}
+                </div>
+                <span class="menu_list_ingredients">{{pizza.ingredients}}</span>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
